@@ -308,12 +308,51 @@ macro_rules! gdext_register_method {
         )
     };
 
+    // immutable 2
+    (
+        $Class:ty,
+        fn $method_name:ident(
+            &self
+            $(, mut $arg:ident : $Param:ty)*
+            $(, #[opt] $opt_arg:ident : $OptParam:ty)*
+            $(,)?
+        ) -> $RetTy:ty
+    ) => {
+        $crate::gdext_register_method_inner!(
+            ref,
+            $Class,
+            fn $method_name(
+                $( $arg : $Param, )*
+                $( #[opt] $opt_arg : $OptParam, )*
+            ) -> $RetTy
+        )
+    };
+
     // mutable
     (
         $Class:ty,
         fn $method_name:ident(
             &mut self
             $(, $param:ident : $ParamTy:ty)*
+            $(, #[opt] $opt_param:ident : $OptParamTy:ty)*
+            $(,)?
+        ) -> $RetTy:ty
+    ) => {
+        $crate::gdext_register_method_inner!(
+            mut,
+            $Class,
+            fn $method_name(
+                $( $param : $ParamTy, )*
+                $( #[opt] $opt_param : $OptParamTy, )*
+            ) -> $RetTy
+        )
+    };
+    // mutable2
+    (
+        $Class:ty,
+        fn $method_name:ident(
+            &mut self
+            $(, mut $param:ident : $ParamTy:ty)*
             $(, #[opt] $opt_param:ident : $OptParamTy:ty)*
             $(,)?
         ) -> $RetTy:ty
