@@ -36,6 +36,9 @@ pub(crate) fn is_deleted(class_name: &TyName, method: &ClassMethod, ctx: &mut Co
         | ("ResourceLoader", "load_threaded_get")
         | ("ResourceLoader", "load_threaded_get_status")
         | ("ResourceLoader", "load_threaded_request")
+        | ("RenderingDevice", "draw_list_end")
+        | ("RenderingDevice", "compute_list_end")
+        | ("RenderingDevice", "barrier")
         // also: enum ThreadLoadStatus
 
         => true, _ => false
@@ -93,6 +96,8 @@ pub(crate) fn is_class_deleted(class_name: &TyName) -> bool {
         | "MovieWriterPNGWAV"
         | "ResourceFormatImporterSaver"
         | "UniformSetCacheRD"
+        | "GraphEdit"
+        | "GraphNode"
 
         => true, _ => false
     }
@@ -136,6 +141,7 @@ fn is_class_experimental(class_name: &TyName) -> bool {
         | "SkeletonModificationStack2D"
         | "StreamPeerGZIP"
         | "TextureRect"
+        | "RenderingDevice"
         
         => true, _ => false
     }
