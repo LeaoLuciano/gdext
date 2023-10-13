@@ -225,7 +225,7 @@ pub mod cap {
     #[doc(hidden)]
     pub trait GodotNotification: GodotClass {
         #[doc(hidden)]
-        fn __godot_notification(&mut self, what: i32);
+        fn __godot_notification(&self, what: i32);
     }
 
     // TODO Evaluate whether we want this public or not

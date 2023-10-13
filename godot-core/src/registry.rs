@@ -586,9 +586,9 @@ pub mod callbacks {
         what: i32,
     ) {
         let storage = as_storage::<T>(instance);
-        let mut instance = storage.get_mut();
+        let instance = storage.get();
 
-        T::__godot_notification(&mut *instance, what);
+        T::__godot_notification(&*instance, what);
     }
 
     #[cfg(since_api = "4.2")]
