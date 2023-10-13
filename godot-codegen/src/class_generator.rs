@@ -1884,7 +1884,7 @@ fn special_virtual_methods(notification_enum_name: &Ident) -> TokenStream {
         /// See also in Godot docs:
         /// * [`Object::_notification`](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object-method-notification).
         /// * [Notifications tutorial](https://docs.godotengine.org/en/stable/tutorials/best_practices/godot_notifications.html).
-        fn on_notification(&mut self, what: #notification_enum_name) {
+        fn on_notification(&self, what: #notification_enum_name) {
             unimplemented!()
         }
     }

@@ -110,6 +110,8 @@ pub mod private {
         //backtrace: Backtrace, // for future use
     }
 
+    use std::backtrace::Backtrace;
+
     /// Executes `code`. If a panic is thrown, it is caught and an error message is printed to Godot.
     ///
     /// Returns `None` if a panic occurred, and `Some(result)` with the result of `code` otherwise.
@@ -149,6 +151,8 @@ pub mod private {
                 // Flush, to make sure previous Rust output (e.g. test announcement, or debug prints during app) have been printed
                 // TODO write custom panic handler and move this there, before panic backtrace printing
                 flush_stdout();
+
+                println!("{}", Backtrace::force_capture());
 
                 let guard = info.lock().unwrap();
                 let info = guard.as_ref().expect("no panic info available");

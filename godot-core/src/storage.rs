@@ -27,8 +27,9 @@ mod single_threaded {
     use std::any::type_name;
     use std::cell;
 
+    use std::backtrace::Backtrace;
     use crate::obj::{Base, Gd, GodotClass, Inherits};
-    use crate::out;
+    use crate::{out};
 
     use super::Lifecycle;
 
@@ -61,7 +62,9 @@ mod single_threaded {
         }
 
         pub fn get(&self) -> cell::Ref<T> {
+            // godot_print!("ID: {}", self.base.clone());
             self.user_instance.try_borrow().unwrap_or_else(|_e| {
+                println!("{}", Backtrace::force_capture());
                 panic!(
                     "Gd<T>::bind() failed, already bound; T = {}.\n  \
                      Make sure there is no &mut T live at the time.\n  \
@@ -72,6 +75,10 @@ mod single_threaded {
         }
 
         pub fn get_mut(&self) -> cell::RefMut<T> {
+            // godot_print!("ID mut: {}", self.base.clone());
+            // if self.base.to_string().contains("Entity") {
+            //     println!("{}", Backtrace::force_capture());
+            // }
             self.user_instance.try_borrow_mut().unwrap_or_else(|_e| {
                 panic!(
                     "Gd<T>::bind_mut() failed, already bound; T = {}.\n  \
